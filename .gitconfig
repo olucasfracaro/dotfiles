@@ -1,0 +1,12 @@
+[user]
+	email = lucasfracaro0403@gmail.com
+	name = olucasfracaro
+[alias]
+	tree = log --graph --oneline --decorate --all
+[credential]
+	helper = store
+[init]
+	defaultBranch = main
+[safe]
+	directory = /home/positivo/github/ViroBase
+	directory = /opt/lampp/htdocs/ViroBase
