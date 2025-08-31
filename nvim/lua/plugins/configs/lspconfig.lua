@@ -64,4 +64,11 @@ require("lspconfig").lua_ls.setup {
   },
 }
 
+require('lspconfig').java_language_server.setup{
+  cmd = {
+    vim.fn.stdpath("data") .. "/mason/packages/java-language-server/dist/lang_server_linux.sh"
+  },
+  -- outras opções se desejar
+}
+
 return M
