@@ -1,0 +1,335 @@
+* {
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: Tektur, FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+/* --- General Styles --- */
+window#waybar {
+    background-color: rgba(43, 48, 59, 0.6);
+    border: 1px solid grey;
+    color: #ffffff;
+    transition-property: background-color;
+    transition-duration: .1s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+window#waybar.termite {
+    background-color: #3F3F3F;
+}
+
+window#waybar.chromium {
+    background-color: #000000;
+    border: none;
+}
+
+button {
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: inset 0 -3px transparent;
+    /* Avoid rounded borders under each button name */
+    border: none;
+    border-radius: 0;
+}
+
+button:hover {
+    background: inherit;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+label:focus {
+    background-color: #000000;
+}
+
+/* --- Common Module Styles --- */
+#clock,
+#battery,
+#custom-system,
+#cpu,
+#memory,
+#temperature,
+#custom-updates,
+#network,
+#custom-hyprsunset,
+#custom-power,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpd {
+    padding: 0 10px;
+    color: #ffffff;
+}
+
+/* --- Left Modules --- */
+#clock {
+    font-size: 13.5px;
+    color: #83AFF0;
+}
+
+#pulseaudio {
+    color: #83AFF0;
+}
+
+#pulseaudio.muted {
+    background-color: #90b1b1;
+    color: #83AFF0;
+}
+
+#battery {
+    color: #83AFF0;
+}
+
+#battery.charging,
+#battery.plugged {
+    color: #26A65B;
+}
+
+@keyframes blink {
+    to {
+        color: #ffffff;
+    }
+}
+
+#battery.warning:not(.charging) {
+    color: yellow;
+}
+
+#battery.critical:not(.charging) {
+    background-color: rgba(0, 0, 0, 0);
+    color: #f53c3c;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#custom-system {
+    color: #7a7a7a;
+}
+
+#custom-media {
+    background-color: #66cc99;
+    color: #2a5c45;
+    min-width: 100px;
+}
+
+#custom-media.custom-spotify {
+    background-color: #66cc99;
+}
+
+#custom-media.custom-vlc {
+    background-color: #ffa000;
+}
+
+/* --- Center Modules --- */
+#window,
+#workspaces {
+    margin: 4px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    background: rgba(71, 121, 196, 0.4);
+}
+
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#workspaces button {
+    border-radius: 9px;
+    padding: 0 4px;
+    margin: 3px;
+    background-color: transparent;
+    color: #FFFFFF;/*#83AFF0;*/
+    transition: background-color 0.4s linear, box-shadow 0.5s linear;
+}
+
+#workspaces button:hover {
+    background: rgba(131, 175, 240, 0.2);
+    box-shadow: inherit;
+    text-shadow: inherit;
+}
+
+#workspaces button.active {
+    background: rgba(131, 175, 240, 0.4);
+}
+
+@keyframes urgency {
+    0%  {color: rgba(165, 44, 44, 1)}
+    50% {color: rgba(165, 44, 44, 0)}
+}
+
+#workspaces button.urgent {
+    background-color: rgba(165, 44, 44, 0.6);
+    animation: urgency 0.7s linear infinite;
+}
+
+/* --- Right Modules --- */
+#mpd {
+    background-color: #66cc99;
+    color: #2a5c45;
+}
+
+#mpd.disconnected {
+    background-color: #f53c3c;
+}
+
+#mpd.stopped {
+    background-color: #90b1b1;
+}
+
+#mpd.paused {
+    background-color: #51a37a;
+}
+
+#custom-updates {
+    font-size: 14px;
+}
+
+#custom-updates.updates-available {
+    color: #26a25b;
+}
+
+#custom-updates.updated {
+    color: #7a7a7a;
+}
+
+#custom-bluetooth {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+#custom-bluetooth.enabled {
+    color: #0069d4;
+}
+
+#custom-bluetooth.disabled {
+    color: #7a7a7a;
+}
+
+#network {
+    color: #6030ff;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+#network.disconnected {
+    color: #f53c3c;
+}
+
+#custom-hyprsunset {
+    color: #f1c40f;
+    font-size: 15px;
+}
+
+#custom-power {
+    margin-right: 6px;
+    font-size: 15px;
+    color: #83AFF0;
+}
+
+/* --- Other/Unused Modules --- */
+#mode {
+    background-color: #64727D;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+#power-profiles-daemon {
+    padding-right: 15px;
+}
+
+#power-profiles-daemon.performance {
+    background-color: #f53c3c;
+    color: #ffffff;
+}
+
+#power-profiles-daemon.balanced {
+    background-color: #2980b9;
+    color: #ffffff;
+}
+
+#power-profiles-daemon.power-saver {
+    background-color: #2ecc71;
+    color: #000000;
+}
+
+#wireplumber {
+    background-color: #fff0f5;
+    color: #000000;
+}
+
+#wireplumber.muted {
+    background-color: #f53c3c;
+}
+
+#tray {
+    background-color: #2980b9;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #eb4d4b;
+}
+
+#idle_inhibitor {
+    background-color: #2d3436;
+}
+
+#idle_inhibitor.activated {
+    background-color: #ecf0f1;
+    color: #2d3436;
+}
+
+#language {
+    background: #00b093;
+    color: #740864;
+    padding: 0 5px;
+    margin: 0 5px;
+    min-width: 16px;
+}
+
+#scratchpad {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#scratchpad.empty {
+    background-color: transparent;
+}
+
+#privacy {
+    padding: 0;
+}
+
+#privacy-item {
+    padding: 0 5px;
+    color: white;
+}
+
+#privacy-item.screenshare {
+    background-color: #cf5700;
+}
+
+#privacy-item.audio-in {
+    background-color: #1ca000;
+}
+
+#privacy-item.audio-out {
+    background-color: #0069d4;
+}
