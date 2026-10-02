@@ -1,0 +1,62 @@
+format = """
+$os\
+$sudo\
+$directory\
+$git_branch\
+$git_status\
+$haskell\
+$java\
+$gradle\
+$maven\
+$docker_context\
+$shell
+"""
+
+[directory]
+style = "bold blue"
+format = '[$path]($style)  '
+
+[git_branch]
+symbol = " "
+style = "bold purple"
+
+[git_status]
+style = "bold red"
+
+[haskell]
+symbol = 'λ '
+
+[java]
+symbol = '☕ '
+
+[gradle]
+symbol='🅶 '
+
+[maven]
+symbol='🅼 '
+
+[sudo]
+style = 'green'
+symbol = '🦸‍♂️ '
+disabled = false
+
+[docker_context]
+symbol = " "
+
+[os]
+format = "[$symbol]($style)"
+style = "bold blue"
+disabled = false
+
+[os.symbols]
+Fedora = "🎩  "
+
+[shell]
+zsh_indicator = 'ζ'
+unknown_indicator = 'mystery shell'
+style = 'strikethrough black'
+disabled = false
+
+[character]
+success_symbol = "[❯](bold purple)"
+error_symbol = "[❯](bold yellow)"

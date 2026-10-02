@@ -57,34 +57,28 @@ local default_plugins = {
 
   {
     "lukas-reineke/indent-blankline.nvim",
-    version = "2.20.7",
-    init = function()
-      require("core.utils").lazy_load "indent-blankline.nvim"
-    end,
+    main = "ibl",
     opts = function()
       return require("plugins.configs.others").blankline
     end,
     config = function(_, opts)
       require("core.utils").load_mappings "blankline"
       dofile(vim.g.base46_cache .. "blankline")
-      require("indent_blankline").setup(opts)
+      require("ibl").setup(opts)
     end,
   },
 
   {
-    "nvim-treesitter/nvim-treesitter",
-    init = function()
-      require("core.utils").lazy_load "nvim-treesitter"
-    end,
-    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
-    build = ":TSUpdate",
-    opts = function()
-      return require "plugins.configs.treesitter"
-    end,
-    config = function(_, opts)
-      dofile(vim.g.base46_cache .. "syntax")
-      require("nvim-treesitter.configs").setup(opts)
-    end,
+      "nvim-treesitter/nvim-treesitter",
+      lazy = false,
+      build = ":TSUpdate",
+      opts = function()
+        return require "plugins.configs.treesitter"
+      end,
+      config = function(_, opts)
+        dofile(vim.g.base46_cache .. "syntax")
+        require("nvim-treesitter").setup(opts)
+      end,
   },
 
   -- git stuff
@@ -143,6 +137,11 @@ local default_plugins = {
     config = function()
       require "plugins.configs.lspconfig"
     end,
+  },
+
+  {
+    "mfussenegger/nvim-jdtls",
+    ft = { "java" }, -- Carrega apenas quando abrir arquivos Java
   },
 
   -- load luasnips + cmp related in insert mode only
@@ -271,6 +270,26 @@ local default_plugins = {
     end,
     event = "VeryLazy",
   },
+  {
+    "andweeb/presence.nvim",
+
+    config = function()
+        require("presence").setup({
+            auto_update = true,
+            main_image = "neovim",
+            neovim_image_text = "The One True Text Editor",
+
+            editing_text = "Editando %s",
+            file_explorer_text = "Explorando %s",
+            git_commit_text = "Fazendo commit",
+            plugin_manager_text = "Gerenciando plugins",
+            reading_text = "Lendo %s",
+            workspace_text = "Trabalhando em %s",
+
+            show_time = true,
+        })
+    end,
+    }
 }
 
 local config = require("core.utils").load_config()
@@ -279,4 +298,11 @@ if #config.plugins > 0 then
   table.insert(default_plugins, { import = config.plugins })
 end
 
-require("lazy").setup(default_plugins, config.lazy_nvim)
+require("lazy").setup({
+    spec = default_plugins,
+    rocks = { enabled = false },
+    -- merge in your existing config
+    -- you can unpack config.lazy_nvim if it's a table
+    -- or set each option manually
+}, config.lazy_nvim)
+

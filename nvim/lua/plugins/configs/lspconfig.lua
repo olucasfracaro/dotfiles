@@ -1,10 +1,7 @@
 dofile(vim.g.base46_cache .. "lsp")
-require "nvchad.lsp"
 
 local M = {}
 local utils = require "core.utils"
-
--- export on_attach & capabilities for custom lspconfigs
 
 M.on_attach = function(client, bufnr)
   client.server_capabilities.documentFormattingProvider = false
@@ -16,7 +13,8 @@ M.on_attach = function(client, bufnr)
     require("nvchad.signature").setup(client)
   end
 
-  if not utils.load_config().ui.lsp_semantic_tokens and client.supports_method "textDocument/semanticTokens" then
+  if not utils.load_config().ui.lsp_semantic_tokens
+      and client:supports_method "textDocument/semanticTokens" then
     client.server_capabilities.semanticTokensProvider = nil
   end
 end
@@ -41,7 +39,7 @@ M.capabilities.textDocument.completion.completionItem = {
   },
 }
 
-require("lspconfig").lua_ls.setup {
+vim.lsp.config("lua_ls", {
   on_attach = M.on_attach,
   capabilities = M.capabilities,
 
@@ -50,6 +48,7 @@ require("lspconfig").lua_ls.setup {
       diagnostics = {
         globals = { "vim" },
       },
+
       workspace = {
         library = {
           [vim.fn.expand "$VIMRUNTIME/lua"] = true,
@@ -57,18 +56,26 @@ require("lspconfig").lua_ls.setup {
           [vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types"] = true,
           [vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy"] = true,
         },
+
         maxPreload = 100000,
         preloadFileSize = 10000,
       },
     },
   },
-}
+})
 
-require('lspconfig').java_language_server.setup{
+vim.lsp.config("hls", {
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
   cmd = {
-    vim.fn.stdpath("data") .. "/mason/packages/java-language-server/dist/lang_server_linux.sh"
+    vim.fn.expand("~/.ghcup/bin/haskell-language-server-wrapper"),
+    "--lsp",
   },
-  -- outras opções se desejar
-}
+})
+
+vim.lsp.enable({
+  "lua_ls",
+  "hls",
+})
 
 return M

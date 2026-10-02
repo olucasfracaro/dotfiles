@@ -104,6 +104,7 @@ local options = {
       "s",
     }),
   },
+
   sources = {
     { name = "nvim_lsp" },
     { name = "luasnip" },

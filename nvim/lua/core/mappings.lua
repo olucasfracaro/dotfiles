@@ -52,6 +52,14 @@ M.general = {
       end,
       "LSP formatting",
     },
+    
+    ["<leader>?"] = {
+      function()
+        require("custom.cheatsheet").open()
+      end,
+      "Abrir cheat sheet",
+    },
+
   },
 
   t = {

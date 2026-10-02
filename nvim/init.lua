@@ -19,3 +19,8 @@ end
 dofile(vim.g.base46_cache .. "defaults")
 vim.opt.rtp:prepend(lazypath)
 require "plugins"
+
+vim.schedule(function()
+  vim.cmd.colorscheme("cyberdream")
+  vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE" })
+end)
