@@ -9,6 +9,12 @@ eval "$(starship init zsh)"
 # Autocomplete baseado no histórico
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# Syntax highlighting — comandos roxos
+ZSH_HIGHLIGHT_STYLES[command]='fg=magenta'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=magenta'
+ZSH_HIGHLIGHT_STYLES[function]='fg=magenta'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta'
+
 # Syntax highlighting
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -17,13 +23,14 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 eval "$(zoxide init zsh)"
 
 # fzf
-#source <(fzf --zsh)
+source <(fzf --zsh)
 
 # Aliases
 alias ll='eza -lah --icons=auto'
 alias la='eza -la --icons=auto'
 alias ls='eza --icons=auto'
 
+alias refrenv='source ~/.zshrc; clear'
 alias :q=exit
 #alias cat='bat'
 alias nv=nvim
@@ -64,3 +71,10 @@ bindkey '^H' backward-kill-word
 # Ctrl + Delete
 bindkey '^[[3;5~' kill-word
 
+# Fastfetch
+fastfetch
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+export PATH="$HOME/.local/bin:$PATH"

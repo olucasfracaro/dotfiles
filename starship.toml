@@ -1,6 +1,5 @@
 format = """
 $os\
-$sudo\
 $directory\
 $git_branch\
 $git_status\
@@ -18,10 +17,10 @@ format = '[$path]($style)  '
 
 [git_branch]
 symbol = " "
-style = "bold purple"
+style = "bold yellow"
 
 [git_status]
-style = "bold red"
+style = "bold yellow"
 
 [haskell]
 symbol = 'λ '
@@ -54,7 +53,7 @@ Fedora = "🎩  "
 [shell]
 zsh_indicator = 'ζ'
 unknown_indicator = 'mystery shell'
-style = 'strikethrough black'
+style = 'strikethrough white'
 disabled = false
 
 [character]
