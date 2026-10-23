@@ -3,10 +3,7 @@ $os\
 $directory\
 $git_branch\
 $git_status\
-$haskell\
-$java\
-$gradle\
-$maven\
+${custom.stack}\
 $docker_context\
 $shell
 """
@@ -14,25 +11,46 @@ $shell
 [directory]
 style = "bold blue"
 format = '[$path]($style)  '
+#truncation_symbol = '../'
+truncate_to_repo = true
+truncation_length = 3
 
 [git_branch]
 symbol = " "
 style = "bold yellow"
+format = '[$symbol$branch(:$remote_branch)]($style) '
+#ignore_branches = ['main']
 
 [git_status]
 style = "bold yellow"
 
-[haskell]
-symbol = 'λ '
-
-[java]
-symbol = '☕ '
-
-[gradle]
-symbol='🅶 '
-
-[maven]
-symbol='🅼 '
+[custom.stack]
+description = "Mostra apenas uma versão"
+command = '''
+if [[ -d app/src/main/kotlin || -d src/main/kotlin ]] || \
+   [[ -f app/src/main/java/com/olucasfracaro/garracio/MainActivity.kt ]] || \
+   [[ -f MainActivity.kt ]]; then
+  printf 'via κτ '
+  grep '^distributionUrl=' gradle/wrapper/gradle-wrapper.properties 2>/dev/null |
+    sed -E 's/.*gradle-([0-9.]+)-.*/\1/' |
+    head -n 1
+elif [[ -f pom.xml ]]; then
+  printf 'via 🅼 '
+  mvn -version 2>/dev/null | head -n 1
+elif [[ -f gradle/wrapper/gradle-wrapper.properties ]]; then
+  printf 'via 🅶 '
+  grep '^distributionUrl=' gradle/wrapper/gradle-wrapper.properties |
+    sed -E 's/.*gradle-([0-9.]+)-.*/\1/' |
+    head -n 1
+elif [[ -f build.gradle || -f build.gradle.kts ]]; then
+  printf 'via 🅶 Gradle'
+else
+  exit 1
+fi
+'''
+when = true
+shell = ["bash"]
+format = '[$output](bold purple) '
 
 [sudo]
 style = 'green'

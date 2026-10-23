@@ -78,6 +78,13 @@ local default_plugins = {
       config = function(_, opts)
         dofile(vim.g.base46_cache .. "syntax")
         require("nvim-treesitter").setup(opts)
+        ensure_installed = {
+          "lua",
+          "vim",
+          "vimdoc",
+          "query",
+          "haskell",
+        }
       end,
   },
 

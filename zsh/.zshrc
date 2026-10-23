@@ -9,14 +9,14 @@ eval "$(starship init zsh)"
 # Autocomplete baseado no histórico
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# Syntax highlighting
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 # Syntax highlighting — comandos roxos
 ZSH_HIGHLIGHT_STYLES[command]='fg=magenta'
 ZSH_HIGHLIGHT_STYLES[builtin]='fg=magenta'
 ZSH_HIGHLIGHT_STYLES[function]='fg=magenta'
 ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta'
-
-# Syntax highlighting
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
 # zoxide
@@ -34,6 +34,7 @@ alias refrenv='source ~/.zshrc; clear'
 alias :q=exit
 #alias cat='bat'
 alias nv=nvim
+alias l=ll
 
 # Git
 alias gs='git status'
@@ -78,3 +79,7 @@ fastfetch
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/development/flutter/bin:$PATH"
+export CHROME_EXECUTABLE=/usr/bin/helium
+export PATH="$PATH:$HOME/.pub-cache/bin"
+export PATH="$HOME/.pub-cache/bin:$HOME/dart-sdk/bin:$PATH"
